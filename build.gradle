@@ -35,7 +35,7 @@ repositories {
     }
 }
 
-
+apply plugin: 'scala'
 apply plugin: 'forge'
 
 //================================================
