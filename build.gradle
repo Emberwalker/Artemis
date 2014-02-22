@@ -1,0 +1,110 @@
+/*
+ * Artemis build file.
+ */
+
+//================================================
+// Variables
+version = '0.0.1'
+mc_ver = '1.6.4'
+forge_ver = '9.11.1.964'
+
+//================================================
+// Pre-execute
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+    }
+}
+
+repositories {
+    maven {
+        name 'Forge'
+        url 'http://files.minecraftforge.net/maven'
+    }
+    maven {
+        name 'MinecraftS3'
+        url 'http://s3.amazonaws.com/Minecraft.Download/libraries'
+    }
+}
+
+
+apply plugin: 'forge'
+
+//================================================
+// Jar data
+
+// Grab system env
+env = System.getenv()
+
+// If not on master, add branch to jar name
+if (env.GIT_BRANCH != null && !env.GIT_BRANCH.equals("master")) {
+    version += "-" + env.GIT_BRANCH
+}
+
+// Version tag for jar file name
+if (env.BUILD_NUMBER != null) {
+    version += "-" + env.BUILD_NUMBER
+}
+
+// Get Jenkins metadata
+jenkinsManifest = manifest {
+    if (env.BUILD_TAG != null) { // If this works, we'll assume we're in Jenkins atleast.
+        attributes("Jenkins-Build": "true", "Jenkins-Tag": env.BUILD_TAG, "Jenkins-ID": env.BUILD_ID)
+    } else {
+        attributes("Jenkins-Build": "false")
+    }
+}
+// Get Git metadata (if in Jenkins)
+gitManifest = manifest {
+    if (env.GIT_BRANCH != null) {
+        attributes("Git-Branch": env.GIT_BRANCH, "Git-Hash": env.GIT_COMMIT)
+    }
+}
+
+// Setup Forge plugin
+minecraft {
+    version = mc_ver + "-" + forge_ver
+    assetDir = 'run/assets'
+    replace '${version}', version
+}
+
+processResources {
+    // Process mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.info'
+        expand 'version':version,'MCversion':mc_ver
+    }
+
+    // Copy anything else directly
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+    }
+}
+
+//================================================
+// Jar tasks
+
+// Merge Jenkins and Git manifests to form final manifest in final release jar
+jar {
+    manifest {
+        from jenkinsManifest, gitManifest
+    }
+}
+
+// Dev jar
+task deobfJar(type: Jar) {
+        from sourceSets.main.output
+        classifier = 'deobf'
+}
+
+artifacts {
+        archives deobfJar
+}
