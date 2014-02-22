@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "Artemis",
+    "name": "Artemis",
+    "description": "A tool for hunting down those annoying STDOUT piped bugs, and the twits who cause them.",
+    "version": "${version}",
+    "mcversion": "${MCversion}",
+    "url": "",
+    "updateUrl": "",
+    "authors": [
+      "Arkan Emberwalker"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "parent":"",
+    "dependencies": []
+  }
+]
