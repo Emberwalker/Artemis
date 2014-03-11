@@ -23,8 +23,8 @@ object Artemis {
   def preInit(evt:FMLPreInitializationEvent) {
     logger.info("Artemis ${version} loading.")
     logger.info("Inserting TracingPrintStream...")
-    System.setOut(new TracingPrintStream(outLogger, "STDOUT"))
-    System.setErr(new TracingPrintStream(errLogger, "STDERR"))
+    System.setOut(new TracingPrintStream(outLogger, "STDOUT", System.out))
+    System.setErr(new TracingPrintStream(errLogger, "STDERR", System.err))
     logger.info("TracingPrintStream inserted on STDOUT/STDERR. These will now be redirected to the Artemis-STDOUT/Artemis-STDERR loggers.")
   }
 

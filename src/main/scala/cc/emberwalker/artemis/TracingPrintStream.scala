@@ -8,7 +8,7 @@ import java.util.logging.Logger
  *
  * @author Arkan <arkan@emberwalker.cc>
  */
-class TracingPrintStream(logger:Logger, stream:String) extends PrintStream(original) {
+class TracingPrintStream(logger:Logger, stream:String, original:PrintStream) extends PrintStream(original) {
 
   override def println(x: String) = {
     val stack = Thread.currentThread().getStackTrace
