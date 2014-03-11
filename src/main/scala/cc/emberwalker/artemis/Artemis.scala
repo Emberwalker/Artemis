@@ -15,20 +15,22 @@ import java.util.logging.Logger
 @NetworkMod(clientSideRequired = false, serverSideRequired = false)
 object Artemis {
 
-  val logger = Logger.getLogger("Artemis")
+  val logger = Logger.getLogger("Artemis-Core")
+  val outLogger = Logger.getLogger("Artemis-STDOUT")
+  val errLogger = Logger.getLogger("Artemis-STDERR")
 
   @EventHandler
   def preInit(evt:FMLPreInitializationEvent) {
     logger.info("Artemis ${version} loading.")
     logger.info("Inserting TracingPrintStream...")
-    System.setOut(new TracingPrintStream(System.out, "STDOUT"))
-    System.setErr(new TracingPrintStream(System.err, "STDERR"))
-    logger.info("TracingPrintStream inserted on STDOUT/STDERR. These will now be redirected.")
+    System.setOut(new TracingPrintStream(outLogger, "STDOUT"))
+    System.setErr(new TracingPrintStream(errLogger, "STDERR"))
+    logger.info("TracingPrintStream inserted on STDOUT/STDERR. These will now be redirected to the Artemis-STDOUT/Artemis-STDERR loggers.")
   }
 
   @EventHandler
   def init(evt:FMLInitializationEvent) {
-    System.out.println("Testing time!")
+    
   }
 
   @EventHandler
