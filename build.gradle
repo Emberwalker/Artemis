@@ -44,15 +44,21 @@ apply plugin: 'forge'
 // Grab system env
 env = System.getenv()
 
+println version
+
 // If not on master, add branch to jar name
 if (env.GIT_BRANCH != null && !env.GIT_BRANCH.equals("master")) {
     version += "-" + env.GIT_BRANCH
 }
 
+println version
+
 // Version tag for jar file name
 if (env.BUILD_NUMBER != null) {
     version += "-" + env.BUILD_NUMBER
 }
+
+println version
 
 // Get Jenkins metadata
 jenkinsManifest = manifest {
