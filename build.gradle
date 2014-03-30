@@ -4,7 +4,7 @@
 
 //================================================
 // Variables
-version = '0.0.2'
+mod_version = '0.0.2'
 mc_ver = '1.6.4'
 forge_ver = '9.11.1.964'
 
@@ -43,6 +43,8 @@ apply plugin: 'forge'
 
 // Grab system env
 env = System.getenv()
+
+version = mc_ver + "-" + mod_version
 
 in_jenkins = false
 // Get Jenkins metadata
@@ -95,7 +97,7 @@ gitManifest = manifest {
 minecraft {
     version = mc_ver + "-" + forge_ver
     assetDir = 'run/assets'
-    replace '${version}', version
+    replace '${version}', mod_version
 }
 
 processResources {
