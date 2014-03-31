@@ -1,3 +1,4 @@
+![Artemis logo](https://raw.github.com/Emberwalker/Artemis/master/src/main/resources/Artemis.png)
 Artemis
 =======
 
