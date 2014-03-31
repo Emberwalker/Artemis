@@ -101,9 +101,9 @@ minecraft {
 }
 
 processResources {
-    // Make sure this gets re-executed on updates.
-    inputs.property "version", version
-    inputs.property "mcversion", mc_ver
+    // Make sure this gets re-executed on updates. -- Disabled due to build errors(?)
+    //inputs.property "version", version
+    //inputs.property "mcversion", mc_ver
     
     // Process mcmod.info
     from(sourceSets.main.resources.srcDirs) {
