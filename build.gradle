@@ -101,10 +101,14 @@ minecraft {
 }
 
 processResources {
+    // Make sure this gets re-executed on updates.
+    inputs.property "version", version
+    inputs.property "mcversion", mc_ver
+    
     // Process mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
-        expand 'version':mod_version,'MCversion':mc_ver
+        expand 'version':mod_version,'mcversion':mc_ver
     }
 
     // Copy anything else directly
