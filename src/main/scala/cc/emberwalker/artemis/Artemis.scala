@@ -11,7 +11,7 @@ import cc.emberwalker.artemis.lib.Config
  *
  * @author Arkan <arkan@emberwalker.cc>
  */
-@Mod(modid = "Artemis", name = "Artemis", version = "${version}", modLanguage = "scala")
+@Mod(modid = "Artemis", name = "Artemis", version = "${version}", modLanguage = "scala", dependencies = "before:*")
 object Artemis {
 
   val logger = Logger.getLogger("Artemis:Core")
