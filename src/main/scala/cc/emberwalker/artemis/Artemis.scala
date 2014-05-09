@@ -5,6 +5,7 @@ import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLInitializationE
 import cpw.mods.fml.common.Mod.EventHandler
 import java.util.logging.Logger
 import cc.emberwalker.artemis.lib.Config
+import org.apache.logging.log4j.LogManager
 
 /**
  * The stdout-hunter mod.
@@ -14,24 +15,20 @@ import cc.emberwalker.artemis.lib.Config
 @Mod(modid = "Artemis", name = "Artemis", version = "${version}", modLanguage = "scala", dependencies = "before:*")
 object Artemis {
 
-  val logger = Logger.getLogger("Artemis:Core")
-  val outLogger = Logger.getLogger("Artemis:STDOUT")
-  val errLogger = Logger.getLogger("Artemis:STDERR")
+  val logger = LogManager.getLogger("Artemis:Core")
+  val outLogger = LogManager.getLogger("Artemis:STDOUT")
+  val errLogger = LogManager.getLogger("Artemis:STDERR")
 
   @EventHandler
   def preInit(evt:FMLPreInitializationEvent) {
-    logger.setParent(FMLLog.getLogger)
-    outLogger.setParent(logger)
-    errLogger.setParent(logger)
-
     logger.info("Artemis ${version} loading.")
 
     logger.info("Loading configuration.")
     Config.loadConfig(evt.getSuggestedConfigurationFile)
 
     logger.info("Inserting TracingPrintStream.")
-    System.setOut(new TracingPrintStream(outLogger, "STDOUT", System.out))
-    System.setErr(new TracingPrintStream(errLogger, "STDERR", System.err))
+    System.setOut(new TracingPrintStream(outLogger, System.out))
+    System.setErr(new TracingPrintStream(errLogger, System.err))
     logger.info("Setup completed.")
   }
 

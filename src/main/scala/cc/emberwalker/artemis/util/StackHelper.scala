@@ -16,7 +16,7 @@ object StackHelper {
 
   private val internalRegex = if (Config.useCustomRegex) new Regex(Config.customRegex) else new Regex(DEFAULT_REGEX)
 
-  private val INDENTS = "\t\t\t\t\t\t\t\t\t\t\t " // TODO: Make less fucking disgusting.
+  private val INDENTS = "\t\t\t\t" // TODO: Make less fucking disgusting.
 
   private def stripToBuffer(stack:Array[StackTraceElement]):ArrayBuffer[String] = {
     val out = new ArrayBuffer[String]()

@@ -4,9 +4,9 @@
 
 //================================================
 // Variables
-mod_version = '0.1.2'
-mc_ver = '1.6.4'
-forge_ver = '9.11.1.964'
+mod_version = '0.2.1'
+mc_ver = '1.7.2'
+forge_ver = '10.12.1.1073'
 
 //================================================
 // Pre-execute
@@ -18,9 +18,14 @@ buildscript {
             name = 'Forge'
             url = 'http://files.minecraftforge.net/maven'
         }
+        // Sonatype (for SpecialSource in 1.7+)
+        maven {
+            name = "Sonatype Nexus"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 

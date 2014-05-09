@@ -1,8 +1,8 @@
 package cc.emberwalker.artemis.lib
 
-import net.minecraftforge.common.Configuration
 import java.io
 import cc.emberwalker.artemis.util.StackHelper
+import net.minecraftforge.common.config.Configuration
 
 /**
  * Artemis configuration.
