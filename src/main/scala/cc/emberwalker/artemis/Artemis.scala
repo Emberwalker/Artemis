@@ -1,11 +1,11 @@
 package cc.emberwalker.artemis
 
-import cpw.mods.fml.common.{FMLLog, Mod}
 import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLInitializationEvent, FMLPreInitializationEvent}
+import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.Mod.EventHandler
-import java.util.logging.Logger
 import cc.emberwalker.artemis.lib.Config
 import org.apache.logging.log4j.LogManager
+import cc.emberwalker.artemis.compat.CompatController
 
 /**
  * The stdout-hunter mod.
@@ -29,6 +29,10 @@ object Artemis {
     logger.info("Inserting TracingPrintStream.")
     System.setOut(new TracingPrintStream(outLogger, System.out))
     System.setErr(new TracingPrintStream(errLogger, System.err))
+
+    logger.info("Initialising plugins.")
+    CompatController.loadCompatMods()
+
     logger.info("Setup completed.")
   }
 
