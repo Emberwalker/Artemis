@@ -12,7 +12,7 @@ import cc.emberwalker.artemis.compat.CompatController
  *
  * @author Arkan <arkan@emberwalker.cc>
  */
-@Mod(modid = "Artemis", name = "Artemis", version = "${version}", modLanguage = "scala", dependencies = "before:*")
+@Mod(modid = "Artemis", name = "Artemis", version = "${version}", modLanguage = "scala", dependencies = "before:*", acceptableRemoteVersions="*")
 object Artemis {
 
   val logger = LogManager.getLogger("Artemis:Core")
