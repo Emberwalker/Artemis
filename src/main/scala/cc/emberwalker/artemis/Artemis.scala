@@ -1,11 +1,13 @@
 package cc.emberwalker.artemis
 
-import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLInitializationEvent, FMLPreInitializationEvent}
+import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.Mod.EventHandler
+import org.apache.logging.log4j.{Level, LogManager}
 import cc.emberwalker.artemis.lib.Config
-import org.apache.logging.log4j.LogManager
 import cc.emberwalker.artemis.compat.CompatController
+import cc.emberwalker.artemis.util.ExitLogThread
+import org.apache.logging.log4j.core.Logger
 
 /**
  * The stdout-hunter mod.
@@ -15,9 +17,9 @@ import cc.emberwalker.artemis.compat.CompatController
 @Mod(modid = "Artemis", name = "Artemis", version = "${version}", modLanguage = "scala", dependencies = "before:*", acceptableRemoteVersions="*")
 object Artemis {
 
-  val logger = LogManager.getLogger("Artemis:Core")
-  val outLogger = LogManager.getLogger("Artemis:STDOUT")
-  val errLogger = LogManager.getLogger("Artemis:STDERR")
+  val logger = LogManager.getLogger("Artemis:Core").asInstanceOf[Logger]
+  val outLogger = LogManager.getLogger("Artemis:STDOUT").asInstanceOf[Logger]
+  val errLogger = LogManager.getLogger("Artemis:STDERR").asInstanceOf[Logger]
 
   @EventHandler
   def preInit(evt:FMLPreInitializationEvent) {
@@ -33,17 +35,12 @@ object Artemis {
     logger.info("Initialising plugins.")
     CompatController.loadCompatMods()
 
+    if (Config.createBlamefile) {
+      logger.info("Injecting JVM shutdown hook thread for blamefile.")
+      Runtime.getRuntime.addShutdownHook(new ExitLogThread)
+    }
+
     logger.info("Setup completed.")
-  }
-
-  @EventHandler
-  def init(evt:FMLInitializationEvent) {
-
-  }
-
-  @EventHandler
-  def postInit(evt:FMLPostInitializationEvent) {
-
   }
 
 }

@@ -3,6 +3,7 @@ package cc.emberwalker.artemis.util
 import scala.collection.mutable.ArrayBuffer
 import scala.util.matching.Regex
 import cc.emberwalker.artemis.lib.Config
+import cc.emberwalker.artemis.Artemis
 
 /**
  * Helper for parsing and dealing with stacktraces.
@@ -17,6 +18,22 @@ object StackHelper {
   private val internalRegex = if (Config.useCustomRegex) new Regex(Config.customRegex) else new Regex(DEFAULT_REGEX)
 
   private val INDENTS = "\t\t\t\t" // TODO: Make less fucking disgusting.
+
+  private def submitEntryToLog(stack:Array[StackTraceElement]) {
+    ExitLogThread.mapLock.lock()
+    try {
+      val cName = stack(2).getClassName
+      val cCount = ExitLogThread.failMap.get(cName)
+      if (cCount.nonEmpty)
+        ExitLogThread.failMap.update(cName, cCount.get + 1)
+      else
+        ExitLogThread.failMap.put(cName, 1)
+    } catch {
+      case _:Throwable => Artemis.logger.warn("Failed to add to failmap from stack: " + stack)
+    } finally {
+      ExitLogThread.mapLock.unlock()
+    }
+  }
 
   private def stripToBuffer(stack:Array[StackTraceElement]):ArrayBuffer[String] = {
     val out = new ArrayBuffer[String]()
@@ -52,6 +69,7 @@ object StackHelper {
   }
 
   def getStackTag(stack:Array[StackTraceElement]):String = {
+    if (Config.createBlamefile) submitEntryToLog(stack) // Save some processing if we're not making a blamefile.
     val filtered = stripBuiltins(stripToBuffer(stack))
     val minimised = shrinkStack(filtered)
     makePrintable(minimised)

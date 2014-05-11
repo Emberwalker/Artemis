@@ -21,6 +21,8 @@ object Config {
     useCustomRegex = conf.get("builtins", "useCustomRegex", useCustomRegex).getBoolean(useCustomRegex)
     customRegex = conf.get("builtins", "customRegex", customRegex).getString
 
+    createBlamefile = conf.get("blame", "createBlamefile", createBlamefile).getBoolean(false)
+
     conf.save()
   }
 
@@ -29,5 +31,7 @@ object Config {
 
   var useCustomRegex = false
   var customRegex = StackHelper.DEFAULT_REGEX
+
+  var createBlamefile = false
 
 }
