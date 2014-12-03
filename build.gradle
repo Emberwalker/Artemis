@@ -4,9 +4,9 @@
 
 //================================================
 // Variables
-mod_version = '0.3.1'
-mc_ver = '1.7.2'
-forge_ver = '10.12.1.1073'
+def mod_version = '0.3.1'
+def mc_ver = '1.7.2'
+def forge_ver = '10.12.1.1073'
 
 //================================================
 // Pre-execute
@@ -43,17 +43,24 @@ repositories {
 apply plugin: 'scala'
 apply plugin: 'forge'
 
+// Setup Forge plugin
+minecraft {
+    version = mc_ver + "-" + forge_ver
+    assetDir = 'run/assets'
+    replace '${version}', mod_version
+}
+
 //================================================
 // Jar data
 
 // Grab system env
-env = System.getenv()
+def env = System.getenv()
 
 version = mc_ver + "-" + mod_version
 
-in_jenkins = false
+def in_jenkins = false
 // Get Jenkins metadata
-jenkinsManifest = manifest {
+def jenkinsManifest = manifest {
     if (env.BUILD_TAG != null) { // If this works, we'll assume we're in Jenkins atleast.
         attributes("Jenkins-Build": "true", "Jenkins-Tag": env.BUILD_TAG, "Jenkins-ID": env.BUILD_ID)
         in_jenkins = true
@@ -92,17 +99,10 @@ if (env.BUILD_NUMBER != null) {
 }
 
 // Get Git metadata (if in Jenkins)
-gitManifest = manifest {
+def gitManifest = manifest {
     if (env.GIT_BRANCH != null) {
         attributes("Git-Branch": branch, "Git-Hash": hash)
     }
-}
-
-// Setup Forge plugin
-minecraft {
-    version = mc_ver + "-" + forge_ver
-    assetDir = 'run/assets'
-    replace '${version}', mod_version
 }
 
 processResources {
