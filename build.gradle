@@ -34,6 +34,7 @@ repositories {
         name 'Forge'
         url 'http://files.minecraftforge.net/maven'
     }
+    mavenCentral()
     maven {
         name 'MinecraftS3'
         url 'http://s3.amazonaws.com/Minecraft.Download/libraries'
@@ -42,6 +43,11 @@ repositories {
 
 apply plugin: 'scala'
 apply plugin: 'forge'
+
+// This is needed to build on Hydra.
+dependencies {
+	compile 'org.scala-lang:scala-library:2.11.1'
+}
 
 // Setup Forge plugin
 minecraft {
