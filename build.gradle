@@ -5,8 +5,8 @@
 //================================================
 // Variables
 def mod_version = '0.3.1'
-def mc_ver = '1.7.2'
-def forge_ver = '10.12.1.1073'
+def mc_ver = '1.8'
+def forge_ver = '11.14.0.1252-1.8'
 
 //================================================
 // Pre-execute
@@ -43,11 +43,6 @@ repositories {
 
 apply plugin: 'scala'
 apply plugin: 'forge'
-
-// This is needed to build on Hydra.
-dependencies {
-	compile 'org.scala-lang:scala-library:2.11.1'
-}
 
 // Setup Forge plugin
 minecraft {
