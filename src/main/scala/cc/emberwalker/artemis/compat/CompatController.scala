@@ -1,7 +1,7 @@
 package cc.emberwalker.artemis.compat
 
 import cc.emberwalker.artemis.compat.mods.GregTech
-import cpw.mods.fml.common.Loader
+import net.minecraftforge.fml.common.Loader
 
 /**
  * Mod compatibility handler.

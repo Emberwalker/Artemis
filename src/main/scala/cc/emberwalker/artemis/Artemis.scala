@@ -1,9 +1,9 @@
 package cc.emberwalker.artemis
 
-import cpw.mods.fml.common.event.FMLPreInitializationEvent
-import cpw.mods.fml.common.Mod
-import cpw.mods.fml.common.Mod.EventHandler
-import org.apache.logging.log4j.{Level, LogManager}
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.common.Mod.EventHandler
+import org.apache.logging.log4j.LogManager
 import cc.emberwalker.artemis.lib.Config
 import cc.emberwalker.artemis.compat.CompatController
 import cc.emberwalker.artemis.util.ExitLogThread
