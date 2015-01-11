@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Loader
 /**
  * Mod compatibility handler.
  *
- * @author Arkan <arkan@emberwalker.cc>
+ * @author Arkan <arkan@drakon.io>
  */
 object CompatController {
 

@@ -6,7 +6,7 @@ import cc.emberwalker.artemis.Artemis
 /**
  * Gregtech compat.
  *
- * @author Arkan <arkan@emberwalker.cc>
+ * @author Arkan <arkan@drakon.io>
  */
 object GregTech extends IModCompat {
 

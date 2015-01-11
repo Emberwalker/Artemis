@@ -4,7 +4,7 @@
 
 //================================================
 // Variables
-def mod_version = '0.4.0'
+def mod_version = '0.5.0'
 def mc_ver = '1.8'
 def forge_ver = '11.14.0.1252-1.8'
 
@@ -47,7 +47,7 @@ apply plugin: 'forge'
 // Setup Forge plugin
 minecraft {
     version = mc_ver + "-" + forge_ver
-    assetDir = 'run/assets'
+    runDir = 'run'
     replace '${version}', mod_version
 }
 

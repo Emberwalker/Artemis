@@ -8,7 +8,7 @@ import cc.emberwalker.artemis.Artemis
 /**
  * Helper for parsing and dealing with stacktraces.
  *
- * @author Arkan <arkan@emberwalker.cc>
+ * @author Arkan <arkan@drakon.io>
  */
 object StackHelper {
 
@@ -70,6 +70,13 @@ object StackHelper {
 
   def getStackTag(stack:Array[StackTraceElement]):String = {
     if (Config.createBlamefile) submitEntryToLog(stack) // Save some processing if we're not making a blamefile.
+
+    // Mod ID map takes a shortcut, if possible.
+    if (Config.mapModIds) {
+      val opt = ModMapper.getModId(stack(2).getClassName)
+      if (opt.nonEmpty) return s"Mod/${opt.get}"
+    }
+
     val filtered = stripBuiltins(stripToBuffer(stack))
     val minimised = shrinkStack(filtered)
     makePrintable(minimised)

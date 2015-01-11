@@ -3,7 +3,7 @@ package cc.emberwalker.artemis.compat
 /**
  * Mod compat interface.
  *
- * @author Arkan <arkan@emberwalker.cc>
+ * @author Arkan <arkan@drakon.io>
  */
 trait IModCompat {
 

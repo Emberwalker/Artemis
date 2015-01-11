@@ -1,17 +1,19 @@
 package cc.emberwalker.artemis.lib
 
-import java.io
-import cc.emberwalker.artemis.util.StackHelper
+import java.io.File
+
 import net.minecraftforge.common.config.Configuration
+
+import cc.emberwalker.artemis.util.StackHelper
 
 /**
  * Artemis configuration.
  *
- * @author Arkan <arkan@emberwalker.cc>
+ * @author Arkan <arkan@drakon.io>
  */
 object Config {
 
-  def loadConfig(confFile:io.File) {
+  def loadConfig(confFile:File) {
     val conf = new Configuration(confFile)
     conf.load()
 
@@ -23,6 +25,8 @@ object Config {
 
     createBlamefile = conf.get("blame", "createBlamefile", createBlamefile).getBoolean(false)
 
+    mapModIds = conf.get("idmap", "mapModIds", mapModIds).getBoolean(true)
+
     conf.save()
   }
 
@@ -33,5 +37,7 @@ object Config {
   var customRegex = StackHelper.DEFAULT_REGEX
 
   var createBlamefile = false
+
+  var mapModIds = true
 
 }

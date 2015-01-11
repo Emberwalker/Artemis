@@ -11,7 +11,7 @@ import org.apache.commons.io.FileUtils
 /**
  * JVM Shutdown Hook thread
  *
- * @author Arkan <arkan@emberwalker.cc>
+ * @author Arkan <arkan@drakon.io>
  */
 class ExitLogThread extends Thread with Runnable {
 
